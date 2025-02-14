@@ -1,5 +1,5 @@
 ---
-title: Someone said I should make this
+title: Welcome
 ---
 
 Welcome to my blog. I'll write here sometimes™
