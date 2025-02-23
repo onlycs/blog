@@ -1,3 +1,4 @@
+#rant
 ## Shaders
 Ok, so, someone a million years ago decided that GPUs get their own programming language. This is fairly understandable; GPUs execute code in a fundamentally different way than CPUs. It would probably still have been easier for developers if whoever made the first shader language just made a GCC backend or something.
 
