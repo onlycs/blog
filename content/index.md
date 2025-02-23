@@ -57,13 +57,13 @@ My name is Angad Tendulkar. At the time of writing, I am a junior at Shaker High
 * For our second semester of CS classes, I wrote a [wrapper for Applets](https://github.com/onlycs/cs2) called Lightweight Java Applet Interface (aka. `LWJAI`, a parody of `LWJGL`)
 * This made animations, positioning, etc, so much easier to write and modify
 * For my final project, I wrote both [a game of chess](https://github.com/onlycs/cs2-chess) and tictactoe (in the same repo).
-### Linux
+#### Linux
 * Switched from GNOME DE to the Hyprland WM.
 ### Grade 10
 #### Jasmine
 * Made my own programming language, [Jasmine](https://github.com/onlycs/jasmine), a Rust[^1] → Java compiler.
 * Written using the [Pest](https://pest.rs/) parser
-### FIRST
+#### FIRST
 * Worked on April Tag following with our new swerve chassis, using PhotonVision and such
 * Made the arm stay in place instead of falling due to gravity
 * Tried and failed to make [Rust bindings](https://github.com/onlycs/robot-rs) to the C++ WPILib
