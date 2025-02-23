@@ -96,12 +96,11 @@ My name is Angad Tendulkar. At the time of writing, I am a junior at Shaker High
 * I found [Sebastian Lague](https://www.youtube.com/@SebastianLague), and his [Fluid Simulation](https://www.youtube.com/watch?v=rSKMYc1CQHE), which I thought was really cool, so I [wrote something similar in rust](https://github.com/onlycs/fluidsim)
 * Currently (like, [actively](https://github.com/onlycs/fluidsim/tree/compute)) working on getting it to run on a compute shader.
 * Brought you the rant, [[The State of Shaders]]
-#### BlogThere's so much stuff I started working on, then stopped due to a lack of time or the project going out of scope real quick. I've built for you a curated list of the major projects I've been working on and left o
+#### Blog
 * Made [this blog](https://blog.angad.page)!
 * [[Creating The Blog]] is a blog post about making this blog
 #### Work in Progress
 * I'm still in 11th grade, and the year isn't over yet. There's still so much to do!
-* This took over six hours to write down and recount
 ## My Skills
 * Very talented Rust developer, with a specialty in literally anything other than frontend work and UIs
 * I also know Dart, Kotlin, Java, Javascript and Typescript, Python, Lua[^4], C#[^5], Bash and Shell Scripting, React/NextJS, Vue/Nuxt, a little Go, HTML and CSS, and a little C.
