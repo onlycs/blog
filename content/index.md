@@ -80,7 +80,7 @@ My name is Angad Tendulkar. At the time of writing, I am a junior at Shaker High
 * Purchased a [Framework Laptop 16](https://frame.work), the laptop purchase to end all laptop purchases
 * Seriously, I will never have to buy a new laptop again
 ### Grade 11
-### FIRST Offseason
+#### FIRST Offseason
 * Programming team lead!!!!!!!!!!
 * Rewrote the entire 2024 robot code because `periodic`s were running over the 0.02s barrier, causing problems
 * Learned Kotlin and introduced it because I had like two days to fix everything for offseason competitions and Java was too verbose.
