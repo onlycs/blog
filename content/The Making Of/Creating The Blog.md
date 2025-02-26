@@ -1,7 +1,9 @@
 ---
 title: Creating the Blog
+tags:
+  - projects/blog
+  - "#projects"
 ---
-#projects/blog
 # 1. Deciding I wanted a blog
 One day, I came across the blog of vaxry, the lead developer of Hyprland, and I thought to myself, "you know what would be cool? A blog of your own!" And then I sat on that idea for over a year because I'm lazy as fuck.
 

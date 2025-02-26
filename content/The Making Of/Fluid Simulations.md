@@ -2,6 +2,7 @@
 title: Fluid Simulations Writeup
 tags:
   - projects/fluidsim
+  - "#projects"
 ---
 I finished my Fluid Simulations project yesterday. The process took around 2 months for me[^1], and I want to document the process. Let's get started.
 ## Choosing a Library
