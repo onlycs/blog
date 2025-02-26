@@ -1,15 +1,15 @@
 ---
 title: Fluid Simulations Writeup
+tags:
+  - projects/fluidsim
 ---
-#projects/fluidsim 
-
 I finished my Fluid Simulations project yesterday. The process took around 2 months for me[^1], and I want to document the process. Let's get started.
 ## Choosing a Library
 To start, I needed a graphics library in Rust. Unfortunately, most of them were, with all due respect for the developers, [unreasonably difficult for beginners](https://github.com/gfx-rs/wgpu), [had unnecessary and costly abstractions with shit compile times](https://github.com/bevyengine/bevy), or [didn't have a good ecosystem or support for `wasm32` or compute shaders](https://github.com/ggez/ggez)[^2].
 ### Game Engines are Cheating
 I knew this from the very beginning. You learn basically nothing[^3] from having [an overarching graphics and physics engine do all the heavy lifting for you](https://unity.com). I decided that the library that I ended up going with didn't count as a game engine, since [all it does is render](https://github.com/ggez/ggez?tab=readme-ov-file#features), which is just the amount of lift I needed to get this thing off the ground.
 ### The `wgpu` Attempt
-Lowkey, what the fuck was this. Like I start a project, pull up some documentation, and I need like a billion lines of code, not to mention [[The State of Shaders||writing shit in an entire other language]] just to get a fucking triangle on the screen. Why `wgpu`??
+Lowkey, what the fuck was this. Like I start a project, pull up some documentation, and I need like a billion lines of code, not to mention [[The State of Shaders|writing shit in an entire other language]] just to get a fucking triangle on the screen. Why `wgpu`??
 This was not a beginner-friendly choice, and I learned that the hard way. It was probably for the better that I switched though, there was like a 0% chance I could have begun to do anything useful while dealing with the pain and suffering needed to just render a circle.
 ### `ggez` — A Rust library to create a Good Game Easily
 `ggez` was a breeze. It made getting started so simple, all I had to do was just create a circle `Mesh` and draw it to the screen. Unreasonably simple.
@@ -17,7 +17,7 @@ This was not a beginner-friendly choice, and I learned that the hard way. It was
 I know, just from knowledge, that if you want to wait for a physics tick to finish before drawing anything to the screen, its inefficient. `winit`[^4] is waiting for physics to finish and physics is waiting for `winit`[^4] to finish. So the solution was a little bit of this:
 ![](https://i.imgur.com/YSozyI3.png)
 ### Draw a circle!
-I got circle drawing working, starting with commit [`f318824`](https://github.com/onlycs/fluidsim/tree/f31882452b88e43b8feece42e69d8dae4b412707)
+I got circle drawing working on commit [`f318824`](https://github.com/onlycs/fluidsim/tree/f31882452b88e43b8feece42e69d8dae4b412707)
 ### Drawing a UI
 So I really really really wanted a little options menu inside the app where you could tune the settings to your liking. To do this, literally everyone uses a well-known library called [`egui`](https://github.com/emilk/egui). Unfortunately, neither developer provided a straightforward way to display a little `egui` window inside of a `ggez` app. [So I made my own. It was hell](https://github.com/onlycs/fluidsim/blob/61c2335fca0b86e7fd9ef455459b0dcd48b967e1/src/renderer/egui_translator.rs). There was literally a block of code where I was just translating [*so many key presses*](https://github.com/onlycs/fluidsim/blob/61c2335fca0b86e7fd9ef455459b0dcd48b967e1/src/renderer/egui_translator.rs#L161-L276). The code was literally just
 ```rust
@@ -124,9 +124,9 @@ I'm going to summarize this part, even though it, by far, took the longest. The 
 ### Compute Shaders
 Compute shaders are a way to make the GPU do all of the physics computations in parallel, which is faster than doing it on the CPU. Most of the equations listed above need to be repeated for each particle, which the GPU excels at.
 However [[The State of Shaders|the current state of shaders suck]]. And honestly, writing in a language that is not Rust, [but tries to be like Rust](https://github.com/onlycs/jasmine), is really annoying. I mean, pointers just didn't work right. And sometimes, `naga-oil` would just fail to compile it for no reason. After banging my head against a wall for a few weeks, I just decided to move to [`rust-gpu`](https://github.com/rust-gpu/rust-gpu), which is a way to write [`spir-v`](https://en.wikipedia.org/wiki/Standard_Portable_Intermediate_Representation) shaders, directly in Rust.
-The decision meant that I didn't have to do much rewriting, since the code that I wrote for the CPU was very GPU-friendly. The only hard part was the [[Fluid Simulations 1#Optimization — Spatial Lookup|sort step for spatial lookup]], which I ended up offloading to [a library](https://github.com/KeKsBoTer/wgpu_sort), which [I forked](https://github.com/onlycs/wgpu_sort) to support the latest version of `wgpu`.
+The decision meant that I didn't have to do much rewriting, since the code that I wrote for the CPU was very GPU-friendly. The only hard part was the [[Fluid Simulations#Optimization — Spatial Lookup|sort step for spatial lookup]], which I ended up offloading to [a library](https://github.com/KeKsBoTer/wgpu_sort), which [I forked](https://github.com/onlycs/wgpu_sort) to support the latest version of `wgpu`.
 ## The End?
-Probably. If I was going to fix something, it would probably be the [[Fluid Simulations 1#Calculating the Pressure Force|bad]] [[Fluid Simulations 1#Viscosity|maths]] that exist in some places. But I want to move on, I've spent too long here.
+Probably. If I was going to fix something, it would probably be the [[Fluid Simulations#Calculating the Pressure Force|bad]] [[Fluid Simulations#Viscosity|maths]] that exist in some places. But I want to move on, I've spent too long here.
 
 [^1]: Ok, but, I'm *me*. It should definitely **not** take just two months.
 [^2]: I respect developers of the aforementioned libraries, but honestly, it [shouldn't](https://github.com/onlycs/fluidsim/tree/renderer-bevy) [be](https://github.com/onlycs/fluidsim/commit/a2703884a17d22066e1d84793dd58067831fef0f) [this hard](https://github.com/onlycs/fluidsim/tree/ggez-wasm32) to draw a ton of colored circles, even on a `wasm` target
