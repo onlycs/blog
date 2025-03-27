@@ -4,7 +4,7 @@ tags:
   - projects/blog
   - "#projects"
 ---
-ma# 1. Finding my blogging software
+# 1. Finding my blogging software
 Early yesterday morning, I got some of that juicy early-morning motivation and decided to actually do some research on how to make a blog. I'm impartial to Obsidian, I use it to take all of my notes currently. According to the internet, I would have to take markdown and turn it into HTML. That sounded too complicated to make on my own—[I already made my own programming language, and it was hell](https://github.com/onlycs/jasmine)—so my friends at Reddit said I either needed to pay [almost $10 per month](https://obsidian.md/publish), or look for a static site generator. I decided to go for the latter because I'm poor.
 
 After [some](https://gohugo.io/) [more](https://www.reddit.com/r/rust/comments/162e40h/obsidiangarden_a_static_site_generator_for/) [dead ends](https://astro.build/)  I found [quartz](https://quartz.jzhao.xyz/) and it was good, actually. More importantly, I could change the colors (most default dark themes are too dark for me, I don't know what to say). After cloning their git repo, and shamelessly copying Adwaita's color palette I was good to continue to...
