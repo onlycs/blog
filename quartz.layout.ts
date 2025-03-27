@@ -26,7 +26,9 @@ export const defaultContentPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.Explorer(),
+    Component.Explorer({
+		filterFn: (page) => !page.data.tags.includes("unlisted")
+	}),
   ],
   right: [
     Component.Graph(),
