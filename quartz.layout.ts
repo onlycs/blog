@@ -1,5 +1,6 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import { QuartzPluginData } from "./quartz/plugins/vfile"
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -27,7 +28,9 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Search(),
     Component.Darkmode(),
     Component.Explorer({
-		filterFn: (page) => !page.data.tags.includes("unlisted")
+		filterFn(node) {
+			return node.file?.frontmatter?.tags?.includes("unlisted") !== true
+		},
 	}),
   ],
   right: [
