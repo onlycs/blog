@@ -1,3 +1,8 @@
+---
+tags:
+  - "#projects/os"
+  - "#projects"
+---
 My next project, I decided, would be to make my own operating system. I realize it definitely will not compete with Windows or Linux. I plan to use this project as a tool to learn how operating systems actually work.
 ## Architecture
 When I was planning out this project, I had originally wanted to make a generic x86 or x64 operating system, that I could perhaps boot on my computer in the future. Midway through planning, however, I switched gears and decided to target `risc-v`[^1] because why not.

@@ -4,23 +4,25 @@ tags:
   - projects/fluidsim
   - "#projects"
 ---
+> 3/26: Minor corrections edits to improve explanations
+
 I finished my Fluid Simulations project yesterday. The process took around 2 months for me[^1], and I want to document the process. Let's get started.
 ## Choosing a Library
-To start, I needed a graphics library in Rust. Unfortunately, most of them were, with all due respect for the developers, [unreasonably difficult for beginners](https://github.com/gfx-rs/wgpu), [had unnecessary and costly abstractions with shit compile times](https://github.com/bevyengine/bevy), or [didn't have a good ecosystem or support for `wasm32` or compute shaders](https://github.com/ggez/ggez)[^2].
+To start, I needed a graphics library in Rust. Unfortunately, most of them were, with all due respect for the developers, [unreasonably difficult for beginners](https://github.com/gfx-rs/wgpu), [had unnecessary abstractions with terrible compile times](https://github.com/bevyengine/bevy), or [didn't have a good ecosystem or support for `wasm32` or compute shaders](https://github.com/ggez/ggez)[^2].
 ### Game Engines are Cheating
 I knew this from the very beginning. You learn basically nothing[^3] from having [an overarching graphics and physics engine do all the heavy lifting for you](https://unity.com). I decided that the library that I ended up going with didn't count as a game engine, since [all it does is render](https://github.com/ggez/ggez?tab=readme-ov-file#features), which is just the amount of lift I needed to get this thing off the ground.
 ### The `wgpu` Attempt
-Lowkey, what the fuck was this. Like I start a project, pull up some documentation, and I need like a billion lines of code, not to mention [[The State of Shaders|writing shit in an entire other language]] just to get a fucking triangle on the screen. Why `wgpu`??
-This was not a beginner-friendly choice, and I learned that the hard way. It was probably for the better that I switched though, there was like a 0% chance I could have begun to do anything useful while dealing with the pain and suffering needed to just render a circle.
+`wgpu` is an extremely low-level wrapper for Vulkan and WebGPU. It's meant to be as bare-bones as possible—nothing is there to help the user.
+So I pull up some documentation, and churn out a couple hundred lines of code, not to mention [[The State of Shaders|a point generator written in another language for some reason]] just to get a singular triangle on the screen. This was fucking ridiculous for attempt one.
 ### `ggez` — A Rust library to create a Good Game Easily
-`ggez` was a breeze. It made getting started so simple, all I had to do was just create a circle `Mesh` and draw it to the screen. Unreasonably simple.
+`ggez` is a high-level rendering API that runs on top of `wgpu`. It makes it super easy to draw a circle, or even a bunch of circles. However, it did not have `wasm` support, meaning I would need to port this project away from `ggez` to get something working on the web.
 ## Physics ↔ Rendering Architecture
-I know, just from knowledge, that if you want to wait for a physics tick to finish before drawing anything to the screen, its inefficient. `winit`[^4] is waiting for physics to finish and physics is waiting for `winit`[^4] to finish. So the solution was a little bit of this:
+If you want to wait for a physics tick to finish before drawing anything to the screen, its inefficient. Your window is waiting for physics to finish and physics is waiting for your window to finish, resulting in massive lag and fps drops. So the solution was a little bit of this:
 ![](https://i.imgur.com/YSozyI3.png)
 ### Draw a circle!
 I got circle drawing working on commit [`f318824`](https://github.com/onlycs/fluidsim/tree/f31882452b88e43b8feece42e69d8dae4b412707)
 ### Drawing a UI
-So I really really really wanted a little options menu inside the app where you could tune the settings to your liking. To do this, literally everyone uses a well-known library called [`egui`](https://github.com/emilk/egui). Unfortunately, neither developer provided a straightforward way to display a little `egui` window inside of a `ggez` app. [So I made my own. It was hell](https://github.com/onlycs/fluidsim/blob/61c2335fca0b86e7fd9ef455459b0dcd48b967e1/src/renderer/egui_translator.rs). There was literally a block of code where I was just translating [*so many key presses*](https://github.com/onlycs/fluidsim/blob/61c2335fca0b86e7fd9ef455459b0dcd48b967e1/src/renderer/egui_translator.rs#L161-L276). The code was literally just
+So I really wanted a little options menu inside the app where you could tune the settings to your liking. To do this, literally everyone uses a well-known library called [`egui`](https://github.com/emilk/egui). Unfortunately, neither `ggez` nor `egui` provided interoperability between the two. [So I did it myself](https://github.com/onlycs/fluidsim/blob/61c2335fca0b86e7fd9ef455459b0dcd48b967e1/src/renderer/egui_translator.rs). It was really annoying. There was literally a block of code where I was just translating [*so many key presses*](https://github.com/onlycs/fluidsim/blob/61c2335fca0b86e7fd9ef455459b0dcd48b967e1/src/renderer/egui_translator.rs#L161-L276). The code was literally just
 ```rust
 match (ggez_keypress) {
 	ggez::KeyCode::KeyA => egui::Key::A,
@@ -28,15 +30,14 @@ match (ggez_keypress) {
 	// and so on (I'm paraphrasing to make this easier to understand, but still)
 }
 ```
-on and on and on and on. I hated every second
 ## The Maths
 ### Pixels is not a Unit
-The first thing you have to understand is that pixels are not a viable unit to actually use in real life. Fortunately, display information on the Framework 16 is readily available. The PPI[^5] number I found at the time was 188 (though I probably read the AI answer instead of the actual 189 PPI display, but it made no difference). Using a little [`uom`](https://github.com/iliekturtles/uom) magic, I made a length unit `pixel`, which converted directly to meters using the 188 figure. The result? I could slow-mo a pencil falling right next to a ball falling and it synced up perfectly
+The first thing you have to understand is that pixels are not a viable unit to actually use in real life. Fortunately, display information on the Framework 16 is readily available. The number of pixels per inch on the screen I was using was 188. Using a little magic, I made a length unit `pixel`, which converted directly to meters. By the end of it, I was able to drop a pencil and it would line up perfectly with a circle falling on the screen.
 ### The To-Do List
-There are two ways people do fluid simulations. I don't remember the first one. The second one is something called smoothed particle hydrodynamics, which I'll be shortening to SPH from here on.  We use a little something called the [Navier-Stokes equations](https://en.wikipedia.org/wiki/Navier%E2%80%93Stokes_equations#:~:text=navier%E2%80%93stokes%20equations%20with%20uniform%20viscosity%20(convective%20form))[^7] to determine what forces to apply to our particles given some state. Here's what needed to be done.
+There are two ways people do fluid simulations. I don't remember the first one. The second one is something called smoothed particle hydrodynamics, also known as SPH. This method relies on using a ton of little particles and modeling the forces between them. We use a little something called the [Navier-Stokes equations](https://en.wikipedia.org/wiki/Navier%E2%80%93Stokes_equations#:~:text=navier%E2%80%93stokes%20equations%20with%20uniform%20viscosity%20(convective%20form))[^7] to determine what forces to apply to our particles given some state. Here's what needed to be done.
 1. Calculate the density $\rho$ at that particle
 2. To calculate the pressure force $a^{pressure}_{i}$, assuming unit mass for simplicity
-	1. The magnitude of the vector, which is $|(\rho-\rho_{target})|*k$, where $k$ is strength
+	1. The magnitude of the vector, which is $|\rho-\rho_{target}|*k$, where $k$ is strength
 	2. The direction, given by $-\nabla\rho$, the negative gradient of the density function (Calculus!)[^6]
 3. Apply the pressure force
 ### Calculating the Density
@@ -56,7 +57,7 @@ The pressure is given by the function
 $$
 P_i = |\rho_i-\rho_{target}|*k
 $$
-which says, the pressure $P_i$ for a given particle $i$ is the difference between the pressure $\rho$ at $i$ and the target density $\rho_{target}$, multiplied by a strength $k$, which is user-controllable. We only use this once when we calculate the pressure force which repels particles, so there is no need to cache this as well.
+which says, the pressure $P_i$ for a given particle $i$ is the difference between the density $\rho$ at $i$ and the target density $\rho_{target}$, multiplied by a strength $k$, which is user-controllable. We only use this once when we calculate the pressure force which repels particles, so there is no need to cache this as well.
 ### Calculating the Pressure Force
 The pressure force is given by the function
 $$
@@ -77,7 +78,7 @@ Don't really know how that happened. Let's go over this term-by-term
 
 After programming all of that, we get a slow, but usable simulation. It's a bit chaotic, and I'll get to why in a bit, but we first have to do some optimization.
 ## Optimization — Spatial Lookup
-Take a look at this math: $\sum_j$. This means to loop over every particle $j$. However, the smoothing function $W$ returns zero after a given radius, i.e. the smoothing radius.
+Our current code is written to loop over every particle $j$. However, the smoothing function $W$ returns zero after a given smoothing radius.
 There's a thing you can do with computers doing simulations, where you break the scene up into blocks of particles which couldn't possibly interact. When calculating some property $A_i$ of some particle $i$ (e.g. density or pressure force), we only need to loop over the particles in the block of $i$ and the blocks surrounding $i$.
 To make this more clear:
 ![](https://i.imgur.com/6CZUrZd.png)
@@ -97,7 +98,7 @@ Lets do an example computation for particle 1. The position for the particle is 
 ![](https://i.imgur.com/PwnXg21.png)
 We can go ahead and do this for all particles, and then we need to sort both the particle indices using the cell keys as the keys for the sort.
 ![](https://i.imgur.com/2EINaEC.png)
-Note that cell key 23 still corresponds to particles 5 and 4, etc. Note that now, particles with the same cell are next to each other in the lower array. We can easily see that particles 5 and 4 are together in the same cell (they share a cell key), particle 2 is by itself, and particle 1 and 3 are together as well.
+Note that cell key 2 still corresponds to particles 5 and 4, etc. Note that now, particles with the same cell are next to each other in the lower array. We can easily see that particles 5 and 4 are together in the same cell (they share a cell key), particle 2 is by itself, and particle 1 and 3 are together as well.
 The last thing we need to do is create another array of start indices.
 ![](https://i.imgur.com/h67E979.png)
 `start_indices[2] = 1`, therefore the first index in cell keys which starts with a "2" is one. That is,
@@ -119,7 +120,7 @@ a^{viscosity}_i = k_{viscosity} * \sum_j m_j * (v_i - v_j) * W(||r_i - r_j||)
 $$
 This essentially averages out velocities, but using the smoothing function so particles further away do not influence the average as much. By scaling based on a relatively small[^12] $k_{viscosity}$, we don't make the simulation ultra-stiff.
 ## `wgpu` Port
-I'm going to summarize this part, even though it, by far, took the longest. The reason is that the port was boring, and mainly consisted of a ton of boilerplate which I'm not qualified to try to explain.
+I'm going to summarize this part, even though it took the longest, by far. The port was boring, tedious, and mainly consisted of a ton of boilerplate which I'm not qualified to try to explain.
 ### Drawing Circles
 `ggez` was not the most efficient, and conflicted with my eventual goal of getting the project to run on the web, or using compute shaders. It took me a while, but I converted the entire renderer to `wgpu`. The circles were done using [`lyon`'s example code](https://github.com/nical/lyon/tree/main/examples/wgpu). The run-down is, if you send a ton of meshes to the GPU to draw at the same time, it's much faster than sending many individual meshes. `lyon` handles how the GPU is drawing each circle, and I just send 16384 primitives along with it, which tells the GPU where and which color to draw each circle.
 ### Compute Shaders
@@ -132,7 +133,6 @@ Probably. If I was going to fix something, it would probably be the [[Fluid Simu
 [^1]: Ok, but, I'm *me*. It should definitely **not** take just two months.
 [^2]: I respect developers of the aforementioned libraries, but honestly, it [shouldn't](https://github.com/onlycs/fluidsim/tree/renderer-bevy) [be](https://github.com/onlycs/fluidsim/commit/a2703884a17d22066e1d84793dd58067831fef0f) [this hard](https://github.com/onlycs/fluidsim/tree/ggez-wasm32) to draw a ton of colored circles, even on a `wasm` target
 [^3]: You learn fluid simulation maths, but nothing about how computers render shit, which is what I was really after
-[^4]: The thing that manages the window
 [^5]: Pixels per inch
 [^6]: God bless Mrs. Dirtadian and the fact that I'm in precalc honors right now, otherwise I wouldn't have been able to math. 
 [^7]: No, I did not actually read and understand this Wikipedia article

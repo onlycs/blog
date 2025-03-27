@@ -98,7 +98,6 @@ My name is Angad Tendulkar. At the time of writing, I am a junior at Shaker High
 * Brought you the rant, [[The State of Shaders]]
 #### Blog
 * Made [this blog](https://blog.angad.page)!
-* [[Creating The Blog]] is a blog post about making this blog
 #### Work in Progress
 * I'm still in 11th grade, and the year isn't over yet. There's still so much to do!
 ## My Skills
