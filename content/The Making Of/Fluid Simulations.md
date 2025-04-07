@@ -5,6 +5,7 @@ tags:
   - "#projects"
 ---
 > 3/26: Minor grammar changes and explanation improvements
+> 
 > 4/06: Fix LaTeX multiplication formatting
 
 I finished my Fluid Simulations project yesterday. The process took around 2 months for me[^1], and I want to document the process. Let's get started.
