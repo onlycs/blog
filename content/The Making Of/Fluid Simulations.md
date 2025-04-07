@@ -4,7 +4,8 @@ tags:
   - projects/fluidsim
   - "#projects"
 ---
-> 3/26: Minor corrections edits to improve explanations
+> 3/26: Minor grammar changes and explanation improvements
+> 4/06: Fix LaTeX multiplication formatting
 
 I finished my Fluid Simulations project yesterday. The process took around 2 months for me[^1], and I want to document the process. Let's get started.
 ## Choosing a Library
@@ -55,17 +56,23 @@ The $\frac{4\pi * radius^4}{6}$ term is the volume of the smoothing function, ca
 ### Calculating the Pressure Given Density
 The pressure is given by the function
 $$
-P_i = |\rho_i-\rho_{target}|*k
+P_i = |\rho_i-\rho_{target}| \times k
 $$
 which says, the pressure $P_i$ for a given particle $i$ is the difference between the density $\rho$ at $i$ and the target density $\rho_{target}$, multiplied by a strength $k$, which is user-controllable. We only use this once when we calculate the pressure force which repels particles, so there is no need to cache this as well.
 ### Calculating the Pressure Force
 The pressure force is given by the function
 $$
-a^{pressure}_i = -\sum_j m_j * (\frac{P_i}{\rho_i^2}+\frac{P_j}{\rho_j^2}) * \nabla W(||r_i - r_j||)
+a^{pressure}_i = 
+  -\sum_j m_j 
+  \times (\frac{P_i}{\rho_i^2}+\frac{P_j}{\rho_j^2}) 
+  \times \nabla W(||r_i - r_j||)
 $$
 However, I'm just realizing that I miswrote it in code. I think I found a different equation elsewhere, which looks something like this
 $$
-a^{pressure}_i = -\sum_{j} \frac{m_j*\frac{P_i+P_j}{2}*\nabla W(||r_i - r_j||)}{\rho_i}
+a^{pressure}_i = 
+  -\sum_{j} \frac
+    {m_j \times \frac{P_i+P_j}{2} \times \nabla W(||r_i - r_j||)}
+    {\rho_i}
 $$
 Don't really know how that happened. Let's go over this term-by-term
 * $a^{pressure}_i$ represents the applied pressure force to some particle $i$
@@ -116,7 +123,11 @@ def indices_in_cell(cell_key): # pseudocode
 
 Well this is that bit. To increase viscosity means to decrease the flow of the particles, that is, how much they like to move relative to each other. This is how we calculate it[^11]
 $$
-a^{viscosity}_i = k_{viscosity} * \sum_j m_j * (v_i - v_j) * W(||r_i - r_j||)
+a^{viscosity}_i = 
+  k_{viscosity} 
+  \times \sum_j m_j 
+  \times (v_i - v_j) 
+  \times W(||r_i - r_j||)
 $$
 This essentially averages out velocities, but using the smoothing function so particles further away do not influence the average as much. By scaling based on a relatively small[^12] $k_{viscosity}$, we don't make the simulation ultra-stiff.
 ## `wgpu` Port

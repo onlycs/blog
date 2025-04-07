@@ -1,5 +1,5 @@
 ---
-title: I Brag About Myself
+title: About Me
 ---
 My name is Angad Tendulkar. At the time of writing, I am a junior at Shaker High School.
 
@@ -37,27 +37,27 @@ My name is Angad Tendulkar. At the time of writing, I am a junior at Shaker High
 #### Misc
 * Purchased `onlycs.net` (no longer live, superseded by `angad.page`).
 ### Grade 9
+#### School's CS Classes
+* For our second semester of CS classes, I wrote a [wrapper for Applets](https://github.com/onlycs/cs2/blob/main/app/src/main/java/cs2/lwjai/LWJAI.java) called Lightweight Java Applet Interface (aka. `LWJAI`, a parody of `LWJGL`)
+* This made animations, positioning, etc, so much easier to write and modify
+* For my final project, I wrote both [a game of chess](https://github.com/onlycs/cs2-chess) and tictactoe (in the same repo).
 #### FIRST
 * Learned Java by [writing the game of chess](https://github.com/onlycs/chess/tree/java-ai).
 * Joined the programming subteam for [my school's robotics team](https://github.com/team2791)
 * I helped transition our team from the aging [pathweaver](https://docs.wpilib.org/en/stable/docs/software/pathplanning/pathweaver/index.html) to the more modern [pathplanner](https://github.com/mjansen4857/pathplanner) for autonomous paths.
 * Coded LEDs
-#### Chess
-* Made a chessboard that could move pieces under it using an electromagnet ([source](https://github.com/onlycs/chess/tree/grbl-chessboard))
-* GRBL was running on an Arduino microcontroller.
-* Under the board was a linear rail system ([repurposed from a sand table](https://www.instructables.com/Easily-Build-a-MACHINE-THAT-DESTROYS-WHAT-IT-CREAT/)), powered by two stepper motors
 #### Rust
 * Learned a new programming language, Rust, in two weeks
 * Made a [card game](https://github.com/onlycs/cards.rs) and a chess game to learn.
 * Rust is still my primary programming language to date.
+#### Chess
+* Made a chessboard that could move pieces under it using an electromagnet ([source](https://github.com/onlycs/chess/tree/grbl-chessboard))
+* GRBL was running on an Arduino microcontroller.
+* Under the board was a linear rail system ([repurposed from a sand table](https://www.instructables.com/Easily-Build-a-MACHINE-THAT-DESTROYS-WHAT-IT-CREAT/)), powered by two stepper motors
 #### Discord
 * Migrated from NCI Bot to [`oreobot`](https://github.com/onlycs/oreobot), written in Rust. 
 #### Web Proxy
 * Wrote [atom](https://github.com/onlycs/atom) to learn Vue.
-#### School's CS Classes 
-* For our second semester of CS classes, I wrote a [wrapper for Applets](https://github.com/onlycs/cs2/blob/main/app/src/main/java/cs2/lwjai/LWJAI.java) called Lightweight Java Applet Interface (aka. `LWJAI`, a parody of `LWJGL`)
-* This made animations, positioning, etc, so much easier to write and modify
-* For my final project, I wrote both [a game of chess](https://github.com/onlycs/cs2-chess) and tictactoe (in the same repo).
 #### Linux
 * Switched from GNOME DE to the Hyprland WM.
 ### Grade 10
@@ -75,47 +75,43 @@ My name is Angad Tendulkar. At the time of writing, I am a junior at Shaker High
 * Produce waste management app for a friend
 * Learned gRPC for the API
 * The app is finished, but it didn't really go anywhere unfortunately
-#### Typing
-* Learned to type properly, reaching >100 wpm on monkeytype.
 #### Framework
-* Purchased a [Framework Laptop 16](https://frame.work), the laptop purchase to end all laptop purchases
-* Seriously, I will never have to buy a new laptop again
+* I got a [Framework Laptop 16](https://frame.work), and will never again need to buy a new laptop
 ### Grade 11
 #### FIRST Offseason
-* Programming team lead!!!!!!!!!!
+* Programming team lead (!!!)
 * Rewrote the entire 2024 robot code for the offseason because `periodic`s were running over the 0.02s barrier, causing problems
-* Learned Kotlin and introduced it because I had like two days to fix everything for offseason competitions and Java was too verbose.
+* Learned Kotlin for robot, I used it instead of Java because I had to make stuff work quickly™
 * For [NERD](https://www.thebluealliance.com/event/2024matb), we reached 2nd place overall.
-* I couldn't find records of it, but we definitely went to Robot Rumble in Ballston Spa. Our Junk Drawer[^2] ended up doing really well though.
+* I couldn't find records of it, but we went to Robot Rumble in Ballston Spa. Our Junk Drawer[^2] ended up doing really well though.
 #### Attendance
 * Made an [attendance system](https://github.com/onlycs/attendance) ([live website](https://attendance.angad.page)) for our team to keep track of hours
 * Got away with not storing any student data, just the sha256 hashes of their IDs
-#### FIRST Dive[^3]
-* Brought [AdvantageKit](https://github.com/Mechanical-Advantage/AdvantageKit) to our team. Level 3 logging and simulations are so cool. 
-* We're doing [actual simulations](https://github.com/team2791/robot2025/tree/main/src/main/java/frc/robot/subsystems/drivetrain/module/ModuleSim.java) now!
-* Finalists at TVR!!!!!
 #### Fluid Simulation
 * I found [Sebastian Lague](https://www.youtube.com/@SebastianLague), and his [Fluid Simulation](https://www.youtube.com/watch?v=rSKMYc1CQHE), which I thought was really cool, so I [wrote something similar in rust](https://github.com/onlycs/fluidsim)
 * Rewrote it twice, once to make it run using a super low-level graphics library (`wgpu`) and once again to run all of it on the GPU.
 * Brought you the rant, [[The State of Shaders]]
 #### Blog
 * Made [this blog](https://blog.angad.page) so I can write stuff down.
+#### FIRST Dive[^3]
+* Brought [AdvantageKit](https://github.com/Mechanical-Advantage/AdvantageKit) to our team. Level 3 logging and simulations are so cool. 
+* We're doing [actual simulations](https://github.com/team2791/robot2025/tree/main/src/main/java/frc/robot/subsystems/drivetrain/module/ModuleSim.java) now!
+* Finalists at Tech Valley Regional (!!)
 #### Operating System
 * Currently working on an (emulated) RISC-V Operating System
 * See [[Operating Systems - Hello, World!|Part 1]] of how I made it if you're curious.
-#### Work in Progress
-* I'm still in 11th grade, and the year isn't over yet. There's still so much to do!
-## My Skills
-* Very talented Rust developer, with a specialty in literally anything other than frontend work and UIs
-* I also know Dart, Kotlin, Java, Javascript and Typescript, Python, Lua[^4], C#[^5], Bash and Shell Scripting, React/NextJS, Vue/Nuxt, a little Go, HTML and CSS, C[^6], and a little C++.
-* I'm very comfortable with Linux... I daily-drive Arch!
-* Familiar with Docker
-* I make websites
-* You can reach me at [angad@angad.page](mailto:angad@angad.page), but emails only reach me like 1/2 the time. Will fix.
+## What I'm Good At
+* I am a talented Rust developer, and I am best with literally anything other than writing UIs[^4]
+* I also know Dart, Kotlin, Java, Javascript and Typescript, Python, Lua[^5], C#[^6], Bash and Shell Scripting, React/NextJS, Vue/Nuxt, a little Go, HTML and CSS, C[^7], and a little C++.
+* I am very good with Linux[^8]
+* I also know Docker and containerization basics
+* I *can* make websites, but they don't look too great, usually
 
 [^1]: It wasn't actual rust, just a language that resembled it in syntax and semantics
 [^2]: The robot we scrapped together in like, two weeks, using spare parts
 [^3]: Events are currently unfolding. May not be up to date by the time you read it
-[^4]: I worked with `neovim` for a while
-[^5]: I made a small game in unity, circa pandemic
-[^6]: Did a small card game in C at some point, it annoyed me
+[^4]: I kid you not, I cannot write a good UI to save my life
+[^5]: I worked with `neovim` for a while
+[^6]: I made a small game in unity, circa pandemic
+[^7]: Did a small card game in C at some point, it annoyed me
+[^8]: Mandatory "I use arch, btw" incoming
