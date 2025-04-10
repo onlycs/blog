@@ -45,13 +45,16 @@ There are two ways people do fluid simulations. I don't remember the first one. 
 ### Calculating the Density
 The density is given by this function
 $$
-\rho_i = \sum_{j}m_j*W(||r_i-r_j||)
+\rho_i = \sum_{j}m_j \times W(||r_i-r_j||)
 $$
 which says, the density $\rho_i$ for a given particle $i$ is approximated to be the weighted sum of the masses $m_j$ for all neighboring particles $j$. The weight is determined by a smoothing function $W$, which takes as its input the distance between the two particles $i$ and $j$, denoted by $||r_i - r_j||$. We're also going to cache the densities for later use.
 ## The Smoothing Function $W$
 $W$ is given by
 $$
-W(distance, radius) = \frac{(radius-distance)^2}{4\pi*radius^4/6}
+W(distance, radius) = 
+  \frac
+    {(radius-distance)^2}
+    {4\pi \times radius^4/6}
 $$
 The $\frac{4\pi * radius^4}{6}$ term is the volume of the smoothing function, calculated a long time ago by Wolfram Alpha when I knew what I was doing.[^8]
 ### Calculating the Pressure Given Density

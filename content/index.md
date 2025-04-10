@@ -97,6 +97,9 @@ My name is Angad Tendulkar. At the time of writing, I am a junior at Shaker High
 * Brought [AdvantageKit](https://github.com/Mechanical-Advantage/AdvantageKit) to our team. Level 3 logging and simulations are so cool. 
 * We're doing [actual simulations](https://github.com/team2791/robot2025/tree/main/src/main/java/frc/robot/subsystems/drivetrain/module/ModuleSim.java) now!
 * Finalists at Tech Valley Regional (!!)
+#### Elastic Dashboard
+* Added dynamic struct parsing to the Elastic Dashboard for FRC
+* To be merged in 2026!!
 #### Operating System
 * Currently working on an (emulated) RISC-V Operating System
 * See [[Operating Systems - Hello, World!|Part 1]] of how I made it if you're curious.
