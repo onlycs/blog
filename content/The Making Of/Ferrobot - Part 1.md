@@ -35,7 +35,7 @@ Since the projects forewent using WPILib entirely, they basically had to create 
 WPILib is written in C++.[^5] C++ is notoriously difficult for Rust code to bind to properly.[^6] The reason why is due to the fundamental difference between Rust and C++: **C++ is object-oriented, Rust isn't**. People spend so much time trying to get Rust to comply with classes, but the basics for them just don't exist in the language!
 #### Pros
 * No need to deal with the HAL, high-level abstractions are already provided for you
-* You get access to all WPILib C++ libraries pretty easily. Just bind to them, too.
+* You get access to all WPILib C++ libraries pretty easily. Just bind to them as well!
 #### Cons
 * You are still locked into all of WPILib's constraints. The 20hz periodic, commands and subsystems—if you did it in C++, you're doing it now.
 * Rust and C++ is extremely difficult.
@@ -43,7 +43,7 @@ WPILib is written in C++.[^5] C++ is notoriously difficult for Rust code to bind
 ## My Approach
 > If Rust was added to the Linux kernel, why can't it be added to the Robot?
 
-Rust is a C-like language. And binding Rust to C (and vice-versa) is just plain easy compared to using C++. So here was my game plan:
+Rust is a C-like language. Binding Rust to C (and vice-versa) is just plain easy compared to using C++. So here was my game plan:
 1. We're still using WPILib C++ to run code.
 2. Rust gets compiled to a **library** and will essentially be glued onto the side of the C++ code
 3. A small C-friendly translation layer will sit in between the two, collecting together data from all the devices and sending it to Rust, and gathering things to do with devices and sending it back to be interpreted.[^7]
