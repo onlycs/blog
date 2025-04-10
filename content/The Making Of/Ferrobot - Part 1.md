@@ -78,9 +78,9 @@ I know one thing for sure though—no matter how far I build this up, there is n
 [^4]: e.g. `REVLib`.`Studica`, afaik, is not open either.
 [^5]: **woah, shocker**
 [^6]: There are [so](https://cxx.rs) [many](https://github.com/rust-lang/rust-bindgen) [projects](https://github.com/mozilla/cbindgen) dedicated to getting C++ to *just play nice*. Even [Google](https://google.github.io/autocxx) has their own! The caveat? Every single one of these projects have some features missing.
-[^7]: A hundred or so asterisks should be put here. 2
+[^7]: A hundred or so asterisks should be put here.
 [^8]: Hint: this is difficult
-[^9]: To allow C to understand Rust types, you have to prefix them with `#[repr(C)]` which just means "forcefully use the C format for storing data types". Also Rust types has generics, C types do not.
+[^9]: To allow C to understand Rust types, you have to prefix them with `#[repr(C)]` which just means "forcefully use the C format for storing data types." Also Rust types has generics, C types do not.
 [^10]: Java/Python users beware
 [^11]: This is tracked at compile-time using the borrow checker, I may make a complete explanation on how the borrow checker works in the future. In the meantime, go RTFM.
 [^12]: When you allocate memory, you ask your operating system for it. Your operating system needs to know when you are no longer using the memory anymore so it can be used by other programs. When you don't give it back it's memory, its called a memory leak. The memory your program takes up will continuously grow until it uses all the memory in your computer, or you force-kill it (i.e. "end task" in Task Manager). Some types don't borrow memory directly from the operating system, and don't need custom destructors. If you're interested, look up the differences between stack and heap memory. I may do an explanation on this in the future.
