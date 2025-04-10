@@ -19,7 +19,7 @@ What most Rust projects were doing was the following:
 
 Congratulations, you have a hello world running on your robot. From here you have two options to actually get motors and stuff running.
 ### Option 1 - Recreating WPILib
-Since the projects forewent using WPILib entirely, they basically had to create it again, from scratch, in Rust. This is a lot of work[^1]. When you're doing everything entirely on your own, you get access to the HAL[^2], and you have to build up your abstractions from scratch. 
+Since the projects forewent using WPILib entirely, they basically had to create it again, from scratch, in Rust. This is a lot of work.[^1] When you're doing everything entirely on your own, you get access to the HAL,[^2] and you have to build up your abstractions from scratch. 
 #### Pros
 * You don't have to use WPILib, it's semantics, etc. Since you get to rebuild your abstractions, **you** are in control, and **you** are making your own ecosystem
 * You don't have to try to get Rust to interface with C++ (See [[Ferrobot - Part 1#Option 2 - Binding to WPILib|Option 2]] for why that's hard), just C
@@ -29,10 +29,10 @@ Since the projects forewent using WPILib entirely, they basically had to create 
 * You do not get *any* access to libraries built from WPILib. 
 	* You instead need to build them from scratch in Rust, or 
 	* Try to get existing vendor dependencies to simultaneously play nice with your very custom code, and pray its not *too* difficult to bind Rust to their C++. 
-	* If vendor dependencies require WPILib to run[^3], you're cooked. The whole point of your project was *not* to use WPILib, but \*surprise* you have to use it anyways. You're basically locked to rebuilding their library in Rust, but sometimes, you can't do that because not all vendor dependencies are open-source[^4]!
+	* If vendor dependencies require WPILib to run,[^3] you're cooked. The whole point of your project was *not* to use WPILib, but \*surprise* you have to use it anyways. You're basically locked to rebuilding their library in Rust, but sometimes, you can't do that because not all vendor dependencies are open-source![^4]
 * One could argue that it's not field-legal. I could be completely wrong about this, but I'm 80% sure FMS stuff exists in WPILib that are required for the field. 
 ### Option 2 - Binding to WPILib
-WPILib is written in C++[^5]. C++ is notoriously difficult for Rust code to bind to properly[^6]. The reason why is due to the fundamental difference between Rust and C++: **C++ is object-oriented, Rust isn't**. People spend so much time trying to get Rust to comply with classes, but the basics for them just don't exist in the language!
+WPILib is written in C++.[^5] C++ is notoriously difficult for Rust code to bind to properly.[^6] The reason why is due to the fundamental difference between Rust and C++: **C++ is object-oriented, Rust isn't**. People spend so much time trying to get Rust to comply with classes, but the basics for them just don't exist in the language!
 #### Pros
 * No need to deal with the HAL, high-level abstractions are already provided for you
 * You get access to all WPILib C++ libraries pretty easily. Just bind to them, too.
@@ -46,11 +46,11 @@ WPILib is written in C++[^5]. C++ is notoriously difficult for Rust code to bind
 Rust is a C-like language. And binding Rust to C (and vice-versa) is just plain easy compared to using C++. So here was my game plan:
 1. We're still using WPILib C++ to run code.
 2. Rust gets compiled to a **library** and will essentially be glued onto the side of the C++ code
-3. A small C-friendly translation layer will sit in between the two, collecting together data from all the devices and sending it to Rust, and gathering things to do with devices and sending it back to be interpreted[^7]
+3. A small C-friendly translation layer will sit in between the two, collecting together data from all the devices and sending it to Rust, and gathering things to do with devices and sending it back to be interpreted.[^7]
 ### C is a Subset of C++
-Since any valid C code is also valid C++ code, I got away with exporting all of my Rust types and functions to C headers using [`cbindgen`](https://github.com/mozilla/cbindgen). I was actually able to construct my Rust types in C because of `cbindgen`[^8]!
+Since any valid C code is also valid C++ code, I got away with exporting all of my Rust types and functions to C headers using [`cbindgen`](https://github.com/mozilla/cbindgen). I was actually able to construct my Rust types in C because of `cbindgen`![^8]
 ### No `Vec`?
-Since Rust types are not *entirely* 1:1 with C types[^9], I could not use certain Rust data structures when exporting to C. By far, the biggest problem, was `Vec<T>`, which is a growable-shrinkable array.
+Since Rust types are not *entirely* 1:1 with C types,[^9] I could not use certain Rust data structures when exporting to C. By far, the biggest problem, was `Vec<T>`, which is a growable-shrinkable array.
 
 A `Vec` contains three values:
 ```rust
@@ -64,7 +64,7 @@ You can turn it into these parts with `Vec::as_ptr()`, `Vec::len()`, and `Vec::c
 
 What we're going to do is create specialized versions of `Vec<T>`, which are just structs that, instead of containing any `T`, stored one concrete type. Also, there would be a different struct for every type that needed a `Vec` in both C and Rust.
 
-We also need to consider manual memory management[^10]. Rust makes this really easy for us, since when a value goes completely out of scope[^11], it automatically runs the `drop()` function on our value, which can contain code to safely destroy the value[^12]. C does not have these niceties[^13], however, so we need to expose code that will destroy the `Vec` that C++ can call.
+We also need to consider manual memory management.[^10] Rust makes this really easy for us, since when a value goes completely out of scope,[^11] it automatically runs the `drop()` function on our value, which can contain code to safely destroy the value.[^12] C does not have these niceties[^13] however, so we need to expose code that will destroy the `Vec` that C++ can call.
 ## The End Goal
 When I started this project, I didn't expect it to get anywhere. Now I'm like 65% of the way to implementing a functional swerve drivetrain. The nice part about this library is that it's going to use Rust's `uom` (Units of Measure) library, which will make it incredibly simple to deal with units. WPI Java's unit library has been a pain in my ass for the longest time, so it's nice to know at least that problem will be fixed.
 
