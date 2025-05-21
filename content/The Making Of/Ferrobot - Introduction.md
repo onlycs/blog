@@ -22,7 +22,7 @@ Congratulations, you have a hello world running on your robot. From here you hav
 Since the projects forewent using WPILib entirely, they basically had to create it again, from scratch, in Rust. This is a lot of work.[^1] When you're doing everything entirely on your own, you get access to the HAL,[^2] and you have to build up your abstractions from scratch. 
 #### Pros
 * You don't have to use WPILib, it's semantics, etc. Since you get to rebuild your abstractions, **you** are in control, and **you** are making your own ecosystem
-* You don't have to try to get Rust to interface with C++ (See [[Ferrobot - Part 1#Option 2 - Binding to WPILib|Option 2]] for why that's hard), just C
+* You don't have to try to get Rust to interface with C++ (See [[Ferrobot - Introduction#Option 2 - Binding to WPILib|Option 2]] for why that's hard), just C
 * You likely unlock some extra performance
 * You do not have to conform to the 20hz periodic constraint
 #### Cons
