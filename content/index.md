@@ -105,7 +105,7 @@ My name is Angad Tendulkar. At the time of writing, I am a junior at Shaker High
 * See [[Operating Systems - Hello, World!|Part 1]] of how I made it if you're curious.
 ## What I'm Good At
 * I am a talented Rust developer, and I am best with literally anything other than writing UIs[^4]
-* I also know Dart, Kotlin, Java, Javascript and Typescript, Python, Lua[^5], C#[^6], Bash and Shell Scripting, React/NextJS, Vue/Nuxt, a little Go, HTML and CSS, C[^7], and a little C++.
+* I also know C, C++, Kotlin, Java, Javascript and Typescript, Python, Lua[^5], C#[^6], Bash and Shell Scripting, Vue, React, a little Go, HTML, CSS, and Dart.
 * I am very good with Linux[^8]
 * I also know Docker and containerization basics
 * I *can* make websites, but they don't look too great, usually
