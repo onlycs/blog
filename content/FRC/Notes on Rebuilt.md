@@ -1,3 +1,7 @@
+---
+tags:
+  - frc
+---
 ## 5.3/Zones
 * Robot starting line is on border of alliance-zone and bumps.
 * Tags should be seeable enough to calibrate early-on... camera angle?
